@@ -1,0 +1,621 @@
+{
+  "info": {
+    "name": "NFT Admin Dashboard API Collection",
+    "description": "Complete API collection for testing BNPL, Subscriptions, and Insurance endpoints",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "{{SUPABASE_ANON_KEY}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "SUPABASE_URL",
+      "value": "https://your-project.supabase.co",
+      "type": "string"
+    },
+    {
+      "key": "SUPABASE_ANON_KEY",
+      "value": "your-anon-key-here",
+      "type": "string"
+    },
+    {
+      "key": "SUPABASE_SERVICE_KEY",
+      "value": "your-service-key-here",
+      "type": "string"
+    },
+    {
+      "key": "WEBHOOK_URL",
+      "value": "http://localhost:4242",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "BNPL Transactions",
+      "item": [
+        {
+          "name": "Get All BNPL Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/bnpl_transactions?select=*&order=created_at.desc",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "bnpl_transactions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get BNPL Transactions by User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/bnpl_transactions?select=*&user_id=eq.00000000-0000-0000-0000-000000000001",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "bnpl_transactions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "user_id",
+                  "value": "eq.00000000-0000-0000-0000-000000000001"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Successful BNPL Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/bnpl_transactions?select=*&bnpl_status=eq.success&order=created_at.desc",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "bnpl_transactions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "bnpl_status",
+                  "value": "eq.success"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get BNPL Statistics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/rpc/get_bnpl_statistics",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "rpc", "get_bnpl_statistics"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Weekly Subscriptions",
+      "item": [
+        {
+          "name": "Get All Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/weekly_subscriptions?select=*&order=created_at.desc",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "weekly_subscriptions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Active Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/weekly_subscriptions?select=*&status=eq.active",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "weekly_subscriptions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "status",
+                  "value": "eq.active"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Active Subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"p_user_id\": \"00000000-0000-0000-0000-000000000001\"\n}"
+            },
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/rpc/get_user_active_subscription",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "rpc", "get_user_active_subscription"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Subscription Statistics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/rpc/get_subscription_statistics",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "rpc", "get_subscription_statistics"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NFT Insurance Logs",
+      "item": [
+        {
+          "name": "Get All Insurance Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/nft_insurance_logs?select=*&order=created_at.desc",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "nft_insurance_logs"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Approved Insurance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/nft_insurance_logs?select=*&insurance_status=eq.approved",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "nft_insurance_logs"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "insurance_status",
+                  "value": "eq.approved"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check NFT Insurance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"p_nft_id\": \"10000000-0000-0000-0000-000000000001\"\n}"
+            },
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/rpc/check_nft_insurance",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "rpc", "check_nft_insurance"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Mock Insurance API",
+      "item": [
+        {
+          "name": "Verify Insurance Coverage",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"00000000-0000-0000-0000-000000000001\",\n  \"nft_id\": \"10000000-0000-0000-0000-000000000001\",\n  \"plan\": \"standard\"\n}"
+            },
+            "url": {
+              "raw": "https://mock-insurance-api.free.beeceptor.com/insurance/verify",
+              "protocol": "https",
+              "host": ["mock-insurance-api", "free", "beeceptor", "com"],
+              "path": ["insurance", "verify"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Insurance Quote",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nft_value\": 150.00,\n  \"coverage_type\": \"theft_and_loss\"\n}"
+            },
+            "url": {
+              "raw": "https://mock-insurance-api.free.beeceptor.com/insurance/quote",
+              "protocol": "https",
+              "host": ["mock-insurance-api", "free", "beeceptor", "com"],
+              "path": ["insurance", "quote"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Webhook Server",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{WEBHOOK_URL}}/health",
+              "host": ["{{WEBHOOK_URL}}"],
+              "path": ["health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Test BNPL Transaction (Dev Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"00000000-0000-0000-0000-000000000001\",\n  \"order_id\": \"TEST-ORDER-999\",\n  \"payment_id\": \"pi_test_12345\",\n  \"payment_method\": \"afterpay_clearpay\",\n  \"amount_paid\": 99.99,\n  \"bnpl_status\": \"success\",\n  \"metadata\": {\n    \"test\": true,\n    \"nft_name\": \"Test NFT #999\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{WEBHOOK_URL}}/test/bnpl",
+              "host": ["{{WEBHOOK_URL}}"],
+              "path": ["test", "bnpl"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Test Subscription (Dev Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"00000000-0000-0000-0000-000000000001\",\n  \"subscription_id\": \"sub_test_12345\",\n  \"stripe_customer_id\": \"cus_test_12345\",\n  \"start_date\": \"2025-10-10\",\n  \"status\": \"active\",\n  \"next_billing_date\": \"2025-10-17\",\n  \"amount\": 5.00,\n  \"currency\": \"AUD\",\n  \"metadata\": {\n    \"test\": true,\n    \"plan\": \"nft_generator_weekly\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{WEBHOOK_URL}}/test/subscription",
+              "host": ["{{WEBHOOK_URL}}"],
+              "path": ["test", "subscription"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin Views (Supabase Views)",
+      "item": [
+        {
+          "name": "Get Recent BNPL Transactions View",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/vw_recent_bnpl_transactions?select=*&limit=50",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "vw_recent_bnpl_transactions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Active Subscriptions View",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/vw_active_subscriptions?select=*",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "vw_active_subscriptions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Insurance Applications View",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/vw_insurance_applications?select=*&limit=50",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "vw_insurance_applications"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
+

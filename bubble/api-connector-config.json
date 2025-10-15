@@ -1,0 +1,274 @@
+{
+  "api_name": "NFT Admin Dashboard APIs",
+  "version": "1.0.0",
+  "description": "API configurations for Supabase REST API and Mock Insurance API",
+  "apis": [
+    {
+      "name": "Supabase_REST",
+      "description": "Supabase REST API for database operations",
+      "authentication": "Private key in header",
+      "base_url": "https://YOUR_PROJECT.supabase.co/rest/v1",
+      "headers": {
+        "apikey": "YOUR_SUPABASE_ANON_KEY",
+        "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY",
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      },
+      "calls": [
+        {
+          "name": "Get_BNPL_Transactions",
+          "method": "GET",
+          "endpoint": "/bnpl_transactions",
+          "description": "Fetch all BNPL transactions",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "order": {
+              "type": "query",
+              "value": "created_at.desc",
+              "optional": true
+            },
+            "user_id": {
+              "type": "query",
+              "value": "eq.{user_id}",
+              "optional": true,
+              "description": "Filter by user ID"
+            },
+            "bnpl_status": {
+              "type": "query",
+              "value": "eq.{status}",
+              "optional": true,
+              "description": "Filter by status"
+            },
+            "limit": {
+              "type": "query",
+              "value": "100",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_Weekly_Subscriptions",
+          "method": "GET",
+          "endpoint": "/weekly_subscriptions",
+          "description": "Fetch all weekly subscriptions",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "order": {
+              "type": "query",
+              "value": "created_at.desc",
+              "optional": true
+            },
+            "user_id": {
+              "type": "query",
+              "value": "eq.{user_id}",
+              "optional": true
+            },
+            "status": {
+              "type": "query",
+              "value": "eq.{status}",
+              "optional": true,
+              "description": "Filter by status (active, paused, canceled)"
+            },
+            "limit": {
+              "type": "query",
+              "value": "100",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_NFT_Insurance_Logs",
+          "method": "GET",
+          "endpoint": "/nft_insurance_logs",
+          "description": "Fetch all NFT insurance logs",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "order": {
+              "type": "query",
+              "value": "created_at.desc",
+              "optional": true
+            },
+            "user_id": {
+              "type": "query",
+              "value": "eq.{user_id}",
+              "optional": true
+            },
+            "insurance_status": {
+              "type": "query",
+              "value": "eq.{status}",
+              "optional": true,
+              "description": "Filter by status (applied, approved, rejected)"
+            },
+            "limit": {
+              "type": "query",
+              "value": "100",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_User_Active_Subscription",
+          "method": "POST",
+          "endpoint": "/rpc/get_user_active_subscription",
+          "description": "Get user's active subscription using RPC function",
+          "body_type": "JSON",
+          "body": {
+            "p_user_id": "{user_id}"
+          },
+          "response_type": "JSON",
+          "use_as": "Data"
+        },
+        {
+          "name": "Get_BNPL_Statistics",
+          "method": "POST",
+          "endpoint": "/rpc/get_bnpl_statistics",
+          "description": "Get BNPL summary statistics",
+          "body_type": "JSON",
+          "response_type": "JSON",
+          "use_as": "Data"
+        },
+        {
+          "name": "Get_Subscription_Statistics",
+          "method": "POST",
+          "endpoint": "/rpc/get_subscription_statistics",
+          "description": "Get subscription summary statistics",
+          "body_type": "JSON",
+          "response_type": "JSON",
+          "use_as": "Data"
+        }
+      ]
+    },
+    {
+      "name": "Mock_Insurance_API",
+      "description": "Mock Insurance API for NFT coverage verification",
+      "authentication": "None (mock API)",
+      "base_url": "https://mock-insurance-api.free.beeceptor.com",
+      "note": "This is a mock API. Replace with real insurance provider when available.",
+      "calls": [
+        {
+          "name": "Verify_NFT_Insurance",
+          "method": "POST",
+          "endpoint": "/insurance/verify",
+          "description": "Verify NFT insurance coverage eligibility",
+          "body_type": "JSON",
+          "body": {
+            "user_id": "{user_id}",
+            "nft_id": "{nft_id}",
+            "plan": "standard"
+          },
+          "response_type": "JSON",
+          "use_as": "Action",
+          "sample_response": {
+            "status": "approved",
+            "policy_id": "POLICY-MOCK-12345",
+            "coverage_amount": 100.00,
+            "premium": 5.00,
+            "expiry_date": "2026-10-10"
+          }
+        },
+        {
+          "name": "Get_Insurance_Quote",
+          "method": "POST",
+          "endpoint": "/insurance/quote",
+          "description": "Get insurance quote for NFT",
+          "body_type": "JSON",
+          "body": {
+            "nft_value": "{nft_value}",
+            "coverage_type": "theft_and_loss"
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "sample_response": {
+            "premium": 5.00,
+            "coverage_amount": 100.00,
+            "coverage_percentage": 5,
+            "valid_for_days": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stripe_Checkout",
+      "description": "Stripe checkout configuration for BNPL and Subscriptions",
+      "note": "Use Stripe Official Plugin instead of API Connector for most operations",
+      "plugin_name": "Stripe Official Plugin",
+      "configuration": {
+        "publishable_key": "pk_test_YOUR_KEY",
+        "secret_key": "sk_test_YOUR_KEY",
+        "features_enabled": [
+          "PaymentIntents",
+          "Checkout Sessions",
+          "Subscription Billing",
+          "AfterPay/ClearPay"
+        ]
+      },
+      "checkout_settings": {
+        "mode": "payment or subscription",
+        "payment_method_types": ["card", "afterpay_clearpay"],
+        "success_url": "https://yourapp.com/success",
+        "cancel_url": "https://yourapp.com/cancel",
+        "metadata": {
+          "user_id": "{current_user_id}",
+          "order_id": "{order_id}",
+          "nft_id": "{nft_id}"
+        }
+      }
+    }
+  ],
+  "setup_instructions": {
+    "step_1": "Install Stripe Official Plugin from Bubble plugin marketplace",
+    "step_2": "Install API Connector Plugin from Bubble plugin marketplace",
+    "step_3": "Add Supabase REST API configuration with your project URL and anon key",
+    "step_4": "Add Mock Insurance API configuration (or replace with real provider)",
+    "step_5": "Initialize all API calls and test responses",
+    "step_6": "Create custom states for API data caching if needed"
+  },
+  "bubble_workflows": {
+    "fetch_bnpl_transactions": {
+      "trigger": "Page is loaded or Button is clicked",
+      "actions": [
+        "Make API call: Supabase_REST - Get_BNPL_Transactions",
+        "Display data in repeating group",
+        "Show loading spinner while fetching"
+      ]
+    },
+    "fetch_subscriptions": {
+      "trigger": "Page is loaded or Button is clicked",
+      "actions": [
+        "Make API call: Supabase_REST - Get_Weekly_Subscriptions",
+        "Display data in repeating group",
+        "Add filter dropdown for status"
+      ]
+    },
+    "verify_insurance": {
+      "trigger": "Insurance checkbox is checked",
+      "actions": [
+        "Make API call: Mock_Insurance_API - Verify_NFT_Insurance",
+        "If approved: Show success message and continue checkout",
+        "If rejected: Show error message and disable insurance option"
+      ]
+    }
+  }
+}
+
