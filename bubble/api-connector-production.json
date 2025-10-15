@@ -1,0 +1,397 @@
+{
+  "api_name": "NFT Admin Dashboard - Production APIs",
+  "version": "2.0.0",
+  "description": "Production-ready API configurations for Supabase REST API integration",
+  "apis": [
+    {
+      "name": "Supabase_REST_Production",
+      "description": "Supabase REST API for production database operations",
+      "authentication": "Private key in header",
+      "base_url": "https://your-project-id.supabase.co/rest/v1",
+      "headers": {
+        "apikey": "{{SUPABASE_ANON_KEY}}",
+        "Authorization": "Bearer {{SUPABASE_ANON_KEY}}",
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      },
+      "calls": [
+        {
+          "name": "Get_BNPL_Transactions_Production",
+          "method": "GET",
+          "endpoint": "/bnpl_transactions",
+          "description": "Fetch all BNPL transactions with filtering and sorting",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "order": {
+              "type": "query",
+              "value": "created_at.desc",
+              "optional": true
+            },
+            "user_id": {
+              "type": "query",
+              "value": "eq.{{user_filter}}",
+              "optional": true,
+              "description": "Filter by user ID"
+            },
+            "bnpl_status": {
+              "type": "query",
+              "value": "eq.{{status_filter}}",
+              "optional": true,
+              "description": "Filter by status (success, failed, pending, refunded)"
+            },
+            "limit": {
+              "type": "query",
+              "value": "{{page_limit}}",
+              "optional": true,
+              "description": "Limit results (default: 100)"
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_Weekly_Subscriptions_Production",
+          "method": "GET",
+          "endpoint": "/weekly_subscriptions",
+          "description": "Fetch all weekly subscriptions with filtering and sorting",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "order": {
+              "type": "query",
+              "value": "created_at.desc",
+              "optional": true
+            },
+            "user_id": {
+              "type": "query",
+              "value": "eq.{{user_filter}}",
+              "optional": true
+            },
+            "status": {
+              "type": "query",
+              "value": "eq.{{status_filter}}",
+              "optional": true,
+              "description": "Filter by status (active, paused, canceled, past_due, incomplete)"
+            },
+            "limit": {
+              "type": "query",
+              "value": "{{page_limit}}",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_NFT_Insurance_Logs_Production",
+          "method": "GET",
+          "endpoint": "/nft_insurance_logs",
+          "description": "Fetch all NFT insurance logs with filtering and sorting",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "order": {
+              "type": "query",
+              "value": "created_at.desc",
+              "optional": true
+            },
+            "user_id": {
+              "type": "query",
+              "value": "eq.{{user_filter}}",
+              "optional": true
+            },
+            "insurance_status": {
+              "type": "query",
+              "value": "eq.{{status_filter}}",
+              "optional": true,
+              "description": "Filter by status (applied, approved, rejected, expired)"
+            },
+            "limit": {
+              "type": "query",
+              "value": "{{page_limit}}",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_Admin_Views_BNPL",
+          "method": "GET",
+          "endpoint": "/vw_recent_bnpl_transactions",
+          "description": "Get optimized BNPL transactions view for admin dashboard",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "limit": {
+              "type": "query",
+              "value": "50",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_Admin_Views_Subscriptions",
+          "method": "GET",
+          "endpoint": "/vw_active_subscriptions",
+          "description": "Get optimized active subscriptions view for admin dashboard",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "limit": {
+              "type": "query",
+              "value": "50",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_Admin_Views_Insurance",
+          "method": "GET",
+          "endpoint": "/vw_insurance_applications",
+          "description": "Get optimized insurance applications view for admin dashboard",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "limit": {
+              "type": "query",
+              "value": "50",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_Global_Transactions_Summary",
+          "method": "GET",
+          "endpoint": "/vw_transactions_summary",
+          "description": "Get global transactions summary from all transaction types",
+          "parameters": {
+            "select": {
+              "type": "query",
+              "value": "*",
+              "optional": true
+            },
+            "transaction_type": {
+              "type": "query",
+              "value": "eq.{{transaction_type_filter}}",
+              "optional": true,
+              "description": "Filter by transaction type (bnpl, subscription, insurance)"
+            },
+            "limit": {
+              "type": "query",
+              "value": "100",
+              "optional": true
+            }
+          },
+          "response_type": "JSON",
+          "use_as": "Data",
+          "return_type": "List"
+        },
+        {
+          "name": "Get_BNPL_Statistics",
+          "method": "POST",
+          "endpoint": "/rpc/get_bnpl_statistics",
+          "description": "Get comprehensive BNPL statistics and analytics",
+          "body_type": "JSON",
+          "body": {},
+          "response_type": "JSON",
+          "use_as": "Data"
+        },
+        {
+          "name": "Get_Subscription_Statistics",
+          "method": "POST",
+          "endpoint": "/rpc/get_subscription_statistics",
+          "description": "Get subscription statistics and revenue analytics",
+          "body_type": "JSON",
+          "body": {},
+          "response_type": "JSON",
+          "use_as": "Data"
+        },
+        {
+          "name": "Get_Transaction_Statistics",
+          "method": "POST",
+          "endpoint": "/rpc/get_transaction_statistics",
+          "description": "Get global transaction statistics from all types",
+          "body_type": "JSON",
+          "body": {},
+          "response_type": "JSON",
+          "use_as": "Data"
+        }
+      ]
+    },
+    {
+      "name": "Stripe_Production",
+      "description": "Stripe integration for production payments",
+      "note": "Use Stripe Official Plugin for production payments",
+      "plugin_name": "Stripe Official Plugin",
+      "configuration": {
+        "publishable_key": "pk_live_YOUR_LIVE_KEY",
+        "secret_key": "sk_live_YOUR_LIVE_KEY",
+        "webhook_endpoint": "https://your-webhook-domain.com/webhook",
+        "features_enabled": [
+          "PaymentIntents",
+          "Checkout Sessions",
+          "Subscription Billing",
+          "AfterPay/ClearPay",
+          "Webhook Processing"
+        ]
+      },
+      "checkout_settings": {
+        "mode": "payment or subscription",
+        "payment_method_types": ["card", "afterpay_clearpay"],
+        "success_url": "https://your-production-app.com/success",
+        "cancel_url": "https://your-production-app.com/cancel",
+        "metadata": {
+          "user_id": "{{current_user_id}}",
+          "order_id": "{{order_id}}",
+          "nft_id": "{{nft_id}}",
+          "app_version": "2.0.0"
+        }
+      }
+    }
+  ],
+  "bubble_custom_states": {
+    "user_filter": {
+      "type": "text",
+      "description": "Current user filter value",
+      "default_value": ""
+    },
+    "status_filter": {
+      "type": "text", 
+      "description": "Current status filter value",
+      "default_value": ""
+    },
+    "transaction_type_filter": {
+      "type": "text",
+      "description": "Current transaction type filter",
+      "default_value": ""
+    },
+    "page_limit": {
+      "type": "number",
+      "description": "Number of records to fetch per page",
+      "default_value": 50
+    },
+    "sort_order": {
+      "type": "text",
+      "description": "Current sort order (asc/desc)",
+      "default_value": "desc"
+    },
+    "sort_field": {
+      "type": "text",
+      "description": "Current field to sort by",
+      "default_value": "created_at"
+    }
+  },
+  "setup_instructions": {
+    "step_1": "Install Stripe Official Plugin from Bubble plugin marketplace",
+    "step_2": "Install API Connector Plugin from Bubble plugin marketplace",
+    "step_3": "Replace base_url with your actual Supabase project URL",
+    "step_4": "Replace {{SUPABASE_ANON_KEY}} with your actual Supabase anon key",
+    "step_5": "Initialize all API calls and test responses",
+    "step_6": "Create custom states for filtering and sorting",
+    "step_7": "Set up repeating groups with proper data sources",
+    "step_8": "Add filter inputs and sorting controls to UI"
+  },
+  "bubble_workflows": {
+    "load_admin_dashboard": {
+      "trigger": "Page is loaded",
+      "actions": [
+        "Initialize custom states with default values",
+        "Make API call: Get_Admin_Views_BNPL",
+        "Make API call: Get_Admin_Views_Subscriptions", 
+        "Make API call: Get_Admin_Views_Insurance",
+        "Make API call: Get_BNPL_Statistics",
+        "Make API call: Get_Subscription_Statistics",
+        "Display data in respective repeating groups",
+        "Show loading spinner while fetching"
+      ]
+    },
+    "filter_by_user": {
+      "trigger": "User filter input changes",
+      "actions": [
+        "Set custom state: user_filter = input value",
+        "Refresh current tab data with filter applied",
+        "Update repeating group data source"
+      ]
+    },
+    "filter_by_status": {
+      "trigger": "Status filter dropdown changes",
+      "actions": [
+        "Set custom state: status_filter = selected option",
+        "Refresh current tab data with filter applied",
+        "Update repeating group data source"
+      ]
+    },
+    "sort_data": {
+      "trigger": "Sort button is clicked",
+      "actions": [
+        "Set custom state: sort_field = selected field",
+        "Set custom state: sort_order = toggle asc/desc",
+        "Refresh current tab data with new sort order",
+        "Update repeating group data source"
+      ]
+    },
+    "export_csv": {
+      "trigger": "Export button is clicked",
+      "actions": [
+        "Get current repeating group data",
+        "Convert data to CSV format",
+        "Trigger browser download",
+        "Show success message"
+      ]
+    }
+  },
+  "ui_components": {
+    "filter_input": {
+      "type": "Input",
+      "placeholder": "Filter by user ID...",
+      "custom_state": "user_filter"
+    },
+    "status_dropdown": {
+      "type": "Dropdown",
+      "options": ["All", "success", "failed", "pending", "refunded", "active", "paused", "canceled", "applied", "approved", "rejected"],
+      "custom_state": "status_filter"
+    },
+    "sort_dropdown": {
+      "type": "Dropdown", 
+      "options": ["created_at", "updated_at", "amount_paid", "amount", "premium_paid"],
+      "custom_state": "sort_field"
+    },
+    "export_button": {
+      "type": "Button",
+      "text": "Export CSV",
+      "workflow": "export_csv"
+    }
+  }
+}

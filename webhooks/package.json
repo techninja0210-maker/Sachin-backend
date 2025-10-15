@@ -1,12 +1,13 @@
 {
   "name": "nft-admin-webhook",
-  "version": "1.0.0",
-  "description": "Stripe webhook handler for NFT Admin Dashboard - BNPL, Subscriptions, Insurance",
-  "main": "stripe-webhook.js",
+  "version": "2.0.0",
+  "description": "Production-ready Stripe webhook handler for NFT Admin Dashboard - BNPL, Subscriptions, Insurance",
+  "main": "stripe-webhook-production.js",
   "scripts": {
-    "start": "node stripe-webhook.js",
-    "dev": "nodemon stripe-webhook.js",
-    "test": "node stripe-webhook.js"
+    "start": "node stripe-webhook-production.js",
+    "dev": "nodemon stripe-webhook-production.js",
+    "start:legacy": "node stripe-webhook.js",
+    "test": "node stripe-webhook-production.js"
   },
   "keywords": [
     "stripe",
@@ -14,15 +15,18 @@
     "nft",
     "bnpl",
     "subscriptions",
-    "supabase"
+    "supabase",
+    "production"
   ],
   "author": "NFT Admin Dashboard Team",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "@supabase/supabase-js": "^2.38.4",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "stripe": "^14.5.0"
+    "stripe": "^14.5.0",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

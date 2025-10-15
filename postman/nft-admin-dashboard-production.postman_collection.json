@@ -1,0 +1,526 @@
+{
+  "info": {
+    "name": "NFT Admin Dashboard - Production API Collection",
+    "description": "Production-ready API collection for testing BNPL, Subscriptions, and Insurance endpoints",
+    "version": "2.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "{{SUPABASE_ANON_KEY}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "SUPABASE_URL",
+      "value": "https://your-project-id.supabase.co",
+      "type": "string",
+      "description": "Your Supabase project URL"
+    },
+    {
+      "key": "SUPABASE_ANON_KEY",
+      "value": "eyJhbGc...YOUR_ANON_KEY_HERE",
+      "type": "string",
+      "description": "Your Supabase anon public key"
+    },
+    {
+      "key": "WEBHOOK_URL",
+      "value": "https://your-webhook-domain.com",
+      "type": "string",
+      "description": "Your production webhook server URL"
+    },
+    {
+      "key": "TEST_USER_ID",
+      "value": "00000000-0000-0000-0000-000000000001",
+      "type": "string",
+      "description": "Test user ID for API calls"
+    },
+    {
+      "key": "TEST_NFT_ID",
+      "value": "10000000-0000-0000-0000-000000000001",
+      "type": "string",
+      "description": "Test NFT ID for insurance calls"
+    }
+  ],
+  "item": [
+    {
+      "name": "BNPL Transactions",
+      "description": "API endpoints for BNPL transaction management",
+      "item": [
+        {
+          "name": "Get All BNPL Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}",
+                "description": "Supabase API key"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}",
+                "description": "Bearer token for authentication"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/bnpl_transactions?select=*&order=created_at.desc&limit=100",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "bnpl_transactions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*",
+                  "description": "Select all columns"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc",
+                  "description": "Order by creation date (newest first)"
+                },
+                {
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Limit results to 100 records"
+                }
+              ]
+            },
+            "description": "Retrieve all BNPL transactions ordered by creation date"
+          },
+          "response": []
+        },
+        {
+          "name": "Get BNPL Transactions by Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/bnpl_transactions?select=*&bnpl_status=eq.success&order=created_at.desc",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "bnpl_transactions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "bnpl_status",
+                  "value": "eq.success",
+                  "description": "Filter by success status"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                }
+              ]
+            },
+            "description": "Get successful BNPL transactions only"
+          },
+          "response": []
+        },
+        {
+          "name": "Get BNPL Statistics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/rpc/get_bnpl_statistics",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "rpc", "get_bnpl_statistics"]
+            },
+            "description": "Get comprehensive BNPL statistics and analytics"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Weekly Subscriptions",
+      "description": "API endpoints for subscription management",
+      "item": [
+        {
+          "name": "Get All Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/weekly_subscriptions?select=*&order=created_at.desc&limit=100",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "weekly_subscriptions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Retrieve all weekly subscriptions ordered by creation date"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Active Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/weekly_subscriptions?select=*&status=eq.active&order=created_at.desc",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "weekly_subscriptions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "status",
+                  "value": "eq.active",
+                  "description": "Filter by active status only"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                }
+              ]
+            },
+            "description": "Get only active subscriptions"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Subscription Statistics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/rpc/get_subscription_statistics",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "rpc", "get_subscription_statistics"]
+            },
+            "description": "Get subscription statistics and revenue analytics"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NFT Insurance Logs",
+      "description": "API endpoints for NFT insurance management",
+      "item": [
+        {
+          "name": "Get All Insurance Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/nft_insurance_logs?select=*&order=created_at.desc&limit=100",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "nft_insurance_logs"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Retrieve all NFT insurance logs ordered by creation date"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Approved Insurance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/nft_insurance_logs?select=*&insurance_status=eq.approved&order=created_at.desc",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "nft_insurance_logs"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "insurance_status",
+                  "value": "eq.approved",
+                  "description": "Filter by approved status only"
+                },
+                {
+                  "key": "order",
+                  "value": "created_at.desc"
+                }
+              ]
+            },
+            "description": "Get only approved insurance applications"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin Dashboard Views",
+      "description": "Optimized views for admin dashboard",
+      "item": [
+        {
+          "name": "Get Recent BNPL Transactions View",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/vw_recent_bnpl_transactions?select=*&limit=50",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "vw_recent_bnpl_transactions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Limit to 50 most recent records"
+                }
+              ]
+            },
+            "description": "Get recent BNPL transactions from optimized view"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Active Subscriptions View",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/vw_active_subscriptions?select=*&limit=50",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "vw_active_subscriptions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Get active subscriptions from optimized view"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Insurance Applications View",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/vw_insurance_applications?select=*&limit=50",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "vw_insurance_applications"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Get insurance applications from optimized view"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Global Transactions Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{SUPABASE_ANON_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{SUPABASE_ANON_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{SUPABASE_URL}}/rest/v1/vw_transactions_summary?select=*&limit=100",
+              "host": ["{{SUPABASE_URL}}"],
+              "path": ["rest", "v1", "vw_transactions_summary"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Get global transactions summary from all transaction types"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Webhook Server (Production)",
+      "description": "Production webhook server endpoints",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{WEBHOOK_URL}}/health",
+              "host": ["{{WEBHOOK_URL}}"],
+              "path": ["health"]
+            },
+            "description": "Check webhook server health and connectivity"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
