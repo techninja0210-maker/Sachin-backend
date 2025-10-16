@@ -35,9 +35,15 @@
     },
     {
       "key": "WEBHOOK_URL",
-      "value": "https://your-webhook-domain.com",
+      "value": "http://localhost:3000",
       "type": "string",
-      "description": "Your production webhook server URL"
+      "description": "Your webhook server URL (localhost for testing, production URL for live)"
+    },
+    {
+      "key": "INSURANCE_API_URL",
+      "value": "http://localhost:3001",
+      "type": "string",
+      "description": "Mock Insurance API URL"
     },
     {
       "key": "TEST_USER_ID",
@@ -52,9 +58,111 @@
       "description": "Test NFT ID for insurance calls"
     }
   ],
-  "item": [
-    {
-      "name": "BNPL Transactions",
+      "item": [
+        {
+          "name": "Mock Insurance API",
+          "item": [
+            {
+              "name": "Verify NFT Insurance",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nft_id\": \"{{TEST_NFT_ID}}\",\n  \"user_id\": \"{{TEST_USER_ID}}\",\n  \"coverage_amount\": 150.00\n}"
+                },
+                "url": {
+                  "raw": "{{WEBHOOK_URL}}/insurance/verify",
+                  "host": ["{{WEBHOOK_URL}}"],
+                  "path": ["insurance", "verify"]
+                },
+                "description": "Verify and approve NFT insurance policy"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Insurance Quote",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nft_id\": \"{{TEST_NFT_ID}}\",\n  \"coverage_amount\": 150.00\n}"
+                },
+                "url": {
+                  "raw": "{{WEBHOOK_URL}}/insurance/quote",
+                  "host": ["{{WEBHOOK_URL}}"],
+                  "path": ["insurance", "quote"]
+                },
+                "description": "Get insurance quote for NFT"
+              },
+              "response": []
+            },
+            {
+              "name": "Reject Insurance Application",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nft_id\": \"{{TEST_NFT_ID}}\",\n  \"user_id\": \"{{TEST_USER_ID}}\",\n  \"rejection_reason\": \"NFT value too high for standard coverage\"\n}"
+                },
+                "url": {
+                  "raw": "{{WEBHOOK_URL}}/insurance/reject",
+                  "host": ["{{WEBHOOK_URL}}"],
+                  "path": ["insurance", "reject"]
+                },
+                "description": "Reject insurance application"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Policy Status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{WEBHOOK_URL}}/insurance/policy/POLICY-NFT-2025-001",
+                  "host": ["{{WEBHOOK_URL}}"],
+                  "path": ["insurance", "policy", "POLICY-NFT-2025-001"]
+                },
+                "description": "Get insurance policy details"
+              },
+              "response": []
+            },
+            {
+              "name": "List All Policies",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{WEBHOOK_URL}}/insurance/policies",
+                  "host": ["{{WEBHOOK_URL}}"],
+                  "path": ["insurance", "policies"]
+                },
+                "description": "List all insurance policies"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "BNPL Transactions",
       "description": "API endpoints for BNPL transaction management",
       "item": [
         {

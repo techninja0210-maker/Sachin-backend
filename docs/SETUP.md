@@ -425,16 +425,38 @@ Initialize call.
 
 ### Step 6: Configure Mock Insurance API
 
-1. In API Connector, click "Add another API"
-2. Name: `Mock_Insurance_API`
-3. Authentication: None
-4. Add call:
+**Option A: Local Mock Insurance Server (Recommended)**
+1. **Start the Mock Insurance API Server:**
+   ```bash
+   cd webhooks
+   npm run start:insurance
    ```
-   Name: Verify_Insurance
-   Use as: Action
-   
-   Method: POST
-   URL: https://mock-insurance-api.free.beeceptor.com/insurance/verify
+   Server will run on: `http://localhost:3001`
+
+2. **API Connector Configuration:**
+   - In API Connector, click "Add another API"
+   - Name: `Mock_Insurance_API`
+   - Authentication: None
+   - Add call:
+     ```
+     Name: Verify_Insurance
+     Use as: Action
+     
+     Method: POST
+     URL: http://localhost:3001/insurance/verify
+
+**Option B: External Mock API (Alternative)**
+1. **API Connector Configuration:**
+   - In API Connector, click "Add another API"
+   - Name: `Mock_Insurance_API`
+   - Authentication: None
+   - Add call:
+     ```
+     Name: Verify_Insurance
+     Use as: Action
+     
+     Method: POST
+     URL: https://mock-insurance-api.free.beeceptor.com/insurance/verify
    
    Body type: JSON
    Body:

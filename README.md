@@ -55,7 +55,7 @@ A modular, production-ready admin dashboard for tracking BNPL transactions, week
 https://supabase.com/dashboard/project/YOUR_PROJECT/editor
 
 # 2. Run production schema
-Copy database/schema-production.sql → Paste → Run
+Copy database/schema-standalone.sql → Paste → Run
 
 # 3. Add test data (optional)
 Copy database/seed-data.sql → Paste → Run
@@ -70,7 +70,7 @@ cd webhooks
 npm install
 
 # 3. Configure environment
-cp env.production.example .env
+cp env.example .env
 # Edit .env with your API keys
 
 # 4. Start server
@@ -97,14 +97,14 @@ Use postman/nft-admin-dashboard-production.postman_collection.json
 nft-admin-dashboard/
 │
 ├── 📊 database/
-│   ├── schema-production.sql          # Production database schema
+│   ├── schema-standalone.sql          # Production database schema
 │   ├── seed-data.sql                  # Test data
 │   └── csv-export-functions.sql       # CSV export functions
 │
 ├── 🔧 webhooks/
-│   ├── stripe-webhook-production.js   # Production webhook server
+│   ├── stripe-webhook.js              # Production webhook server
 │   ├── package.json                   # Dependencies
-│   └── env.production.example         # Environment template
+│   └── env.example                    # Environment template
 │
 ├── 🎨 bubble/
 │   ├── api-connector-production.json  # Production API config
